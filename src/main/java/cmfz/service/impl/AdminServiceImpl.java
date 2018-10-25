@@ -1,26 +1,26 @@
-package cmfz.service;
+package cmfz.service.impl;
 
-import cmfz.dao.MenuDao;
-import cmfz.entity.Menu;
+import cmfz.dao.AdminDao;
+import cmfz.entity.Admin;
+import cmfz.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
  * Created by Administrator on 2018/10/23.
  */
+
 @Service
 @Transactional  //
-public class MenuServiceImpl implements MenuService {
+public class AdminServiceImpl implements AdminService {
 
     @Autowired
-    private MenuDao md;
+    private AdminDao ad;
 
     @Override
-    public List<Menu> selectAll() {
+    public Admin login(Admin a) {
 
-        return md.selectAll();
+        return ad.selectOne(a);
     }
 }

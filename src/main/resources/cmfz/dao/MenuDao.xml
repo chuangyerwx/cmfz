@@ -6,19 +6,25 @@
     <resultMap type="Menu" id="a1">
         <result column="id" property="id"></result>
         <result column="title" property="title"></result>
+        <result column="iconCls" property="iconCls"></result>
+        <result column="url" property="url"></result>
+
 
         <collection property="list"  javaType= "java.util.List" ofType="Menu">
             <result column="ids" property="id"></result>
             <result column="titles" property="title"></result>
+            <result column="iconClss" property="iconCls"></result>
+            <result column="urls" property="url"></result>
 
         </collection>
     </resultMap>
 
     <select id="selectAll" resultMap="a1">
-       select t1.id,t1.title,t2.id ids,t2.title titles from menu t1
-       left join menu t2
-       on t1.id=t2.parentId
-       where t1.parentId is null;
+        select t1.id,t1.title,t1.iconCls,t1.url,t2.id ids,t2.title titles,t2.iconCls iconClss,t2.url urls
+        from menu t1 left join menu t2
+        on t1.id=t2.parentId
+        where t1.parentId is null
+
 
     </select>
 

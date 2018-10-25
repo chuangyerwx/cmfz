@@ -1,5 +1,5 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -8,29 +8,68 @@
 <title>持名法州主页</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/themes/IconExtension.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/themes/icon.css">
 
     <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath }/js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/js/datagrid-detailview.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.edatagrid.js"></script>
 
     <script type="text/javascript">
         <!--菜单处理-->
-//        $(function(){
-//
-//            $("#categoryTree").accordion({
-//                url:"selectAll.do",
-//                onClick:function(node){
-//                    openTabsForBook(node);
-//                }
-//            });
-//
-//            $("#myTabes").tabs({
-//                fit:true
-//            })
-//
-//        });
+        $(function () {
+            $.ajax({
+                url: "${pageContext.request.contextPath}/menu/selectAll",
+//                type: "get",
+                dataType: "JSON",
 
+                success: function (data) {
+                    /*参数1：集合   参数2：元素下标  参数3：当前元素的名字*/
+                    $.each(data, function (index, first) {
 
+                        var c = "";
+
+                        $.each(first.list, function (index1, second) {
+                            c += "<div style='text-align: center'>" +
+                                "   <a href='#' class='easyui-linkbutton'" +
+                                "      data-options=\"iconCls:'icon-search',plain:true\" " +
+                                "      onclick=\"addTabs('" + second.title + "','" + second.url + "','" + second.iconCls + "')\">" +
+                                "      " + second.title + " " +
+                                "   </a>" +
+                                " </div>";
+                        })
+
+                        $('#aa').accordion('add', {
+                            title: first.title,
+                            content: c,
+                            iconCls: first.iconCls,
+                            selected: false
+                        });
+                    })
+                }
+
+            })
+
+        })
+
+        function addTabs(title, url, iconCls) {
+
+            var flag = $("#tt").tabs("exists", title);
+            if (flag){
+                $("#tt").tabs("select", title);
+            }else {
+
+                $('#tt').tabs('add', {
+                    title: title,
+                    selected: true,
+                    iconCls: iconCls,
+                    closable:true,
+
+                    href: "${pageContext.request.contextPath}/" + url
+                })
+            }
+        };
 
 
 
@@ -59,17 +98,13 @@
     <div data-options="region:'west',title:'导航菜单',split:true" style="width:220px;">
     	<div id="aa" class="easyui-accordion" data-options="fit:true">
 
-            <c:forEach items="${requestScope.list}" var="li">
-
-                <div data-options = "title:'${li.title}'">
-
-                    <c:forEach items="${li.list}" var="ll">
-
-                        ${ll.title}<br/>
-                    </c:forEach>
-
-                </div>
-            </c:forEach>
+            <%--<c:forEach items="${requestScope.list}" var="li">--%>
+                <%--<div data-options = "title:'${li.title}'">--%>
+                    <%--<c:forEach items="${li.list}" var="ll">--%>
+                        <%--${ll.title}<br/>--%>
+                    <%--</c:forEach>--%>
+                <%--</div>--%>
+            <%--</c:forEach>--%>
     		
 		</div>  
     </div>

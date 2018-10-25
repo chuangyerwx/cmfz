@@ -25,7 +25,7 @@ public class AdminController {
         Admin list = as.login(admin);
         System.out.println(list);
         hsp.setAttribute("admin",list);
-        return "redirect:/menu/selectAll.do";
+        return "main/main";
     }
 
 }

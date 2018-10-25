@@ -20,11 +20,16 @@ spring:
     password: 123456
     url: jdbc:mysql://localhost:3306/cmfz
     driver-class-name: com.mysql.jdbc.Driver
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: GMT+8
 
 mybatis:
   mapper-locations: cmfz/dao/*Dao.xml
   type-aliases-package: cmfz.entity
 
+#spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
+#spring.jackson.time-zone=GMT+8
 #server.port=8989
 #server.context-path=/cmfz
 #server.jsp-servlet.init-parameters.development=true
